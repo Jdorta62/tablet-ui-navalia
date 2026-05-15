@@ -50,29 +50,12 @@
     var TILE_ATTRIBUTION = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, and the GIS User Community';
     var TILE_OPTIONS     = { minZoom: 11, maxZoom: 16, attribution: TILE_ATTRIBUTION };
 
-    function addTileLayer(urlTemplate) {
-        L.tileLayer(urlTemplate, TILE_OPTIONS).addTo(map);
-    }
-
-    /*
-     * Lee tiles.config.json para obtener la ruta local de los tiles.
-     * Si localPath está vacío o el fichero no existe, usa la ruta relativa.
-     */
-    fetch('../assets/tiles/tiles.config.json')
-        .then(function (r) { return r.json(); })
-        .then(function (cfg) {
-            var base = (cfg.localPath || '').trim();
-            if (base) {
-                /* Normaliza separadores y construye URL file:/// */
-                base = base.replace(/\\/g, '/').replace(/\/$/, '');
-                addTileLayer('file:///' + base + '/{z}/{x}/{y}.png');
-            } else {
-                addTileLayer('../assets/tiles/{z}/{x}/{y}.png');
-            }
-        })
-        .catch(function () {
-            addTileLayer('../assets/tiles/{z}/{x}/{y}.png');
-        });
+    (function () {
+        var base = (window.TILES_LOCAL_PATH || '').trim().replace(/\\/g, '/').replace(/\/$/, '');
+        var url  = base ? 'file:///' + base + '/{z}/{x}/{y}.png'
+                        : '../assets/tiles/{z}/{x}/{y}.png';
+        L.tileLayer(url, TILE_OPTIONS).addTo(map);
+    }());
 
     /* ------------------------------------------------------------------ */
     /* 4. Dynamic minimum zoom                                              */

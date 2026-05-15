@@ -34,20 +34,12 @@
 
     var TILE_OPTIONS = { minZoom: 11, maxZoom: 16, attribution: '' };
 
-    fetch('../assets/tiles/tiles.config.json')
-        .then(function (r) { return r.json(); })
-        .then(function (cfg) {
-            var base = (cfg.localPath || '').trim();
-            if (base) {
-                base = base.replace(/\\/g, '/').replace(/\/$/, '');
-                L.tileLayer('file:///' + base + '/{z}/{x}/{y}.png', TILE_OPTIONS).addTo(map);
-            } else {
-                L.tileLayer('../assets/tiles/{z}/{x}/{y}.png', TILE_OPTIONS).addTo(map);
-            }
-        })
-        .catch(function () {
-            L.tileLayer('../assets/tiles/{z}/{x}/{y}.png', TILE_OPTIONS).addTo(map);
-        });
+    (function () {
+        var base = (window.TILES_LOCAL_PATH || '').trim().replace(/\\/g, '/').replace(/\/$/, '');
+        var url  = base ? 'file:///' + base + '/{z}/{x}/{y}.png'
+                        : '../assets/tiles/{z}/{x}/{y}.png';
+        L.tileLayer(url, TILE_OPTIONS).addTo(map);
+    }());
 
     map.whenReady(function () {
         var minZ = Math.ceil(map.getBoundsZoom(tileBounds, true));
