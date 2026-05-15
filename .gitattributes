@@ -1,0 +1,21 @@
+# Normalización global: Git decide según el tipo
+* text=auto
+
+# Texto — siempre LF en el repo
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.svg  text eol=lf
+
+# Binarios — sin conversión de línea, sin diff de texto
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.otf  binary
