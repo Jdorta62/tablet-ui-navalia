@@ -36,7 +36,7 @@
 
     (function () {
         var base = (window.TILES_LOCAL_PATH || '').trim().replace(/\\/g, '/').replace(/\/$/, '');
-        var url  = base ? 'file:///' + base + '/{z}/{x}/{y}.png'
+        var url  = base ? base + '/{z}/{x}/{y}.png'
                         : '../assets/tiles/{z}/{x}/{y}.png';
         L.tileLayer(url, TILE_OPTIONS).addTo(map);
     }());
