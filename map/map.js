@@ -47,15 +47,11 @@
     /* 3. Tile layer (offline)                                              */
     /* ------------------------------------------------------------------ */
 
-    var TILE_ATTRIBUTION = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, and the GIS User Community';
-    var TILE_OPTIONS     = { minZoom: 11, maxZoom: 16, attribution: TILE_ATTRIBUTION };
-
-    (function () {
-        var base = (window.TILES_LOCAL_PATH || '').trim().replace(/\\/g, '/').replace(/\/$/, '');
-        var url  = base ? base + '/{z}/{x}/{y}.png'
-                        : '../assets/tiles/{z}/{x}/{y}.png';
-        L.tileLayer(url, TILE_OPTIONS).addTo(map);
-    }());
+    L.tileLayer('../assets/tiles/{z}/{x}/{y}.png', {
+        minZoom:     11,
+        maxZoom:     16,
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, and the GIS User Community'
+    }).addTo(map);
 
     /* ------------------------------------------------------------------ */
     /* 4. Dynamic minimum zoom                                              */

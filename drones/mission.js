@@ -32,14 +32,11 @@
         e.preventDefault();
     });
 
-    var TILE_OPTIONS = { minZoom: 11, maxZoom: 16, attribution: '' };
-
-    (function () {
-        var base = (window.TILES_LOCAL_PATH || '').trim().replace(/\\/g, '/').replace(/\/$/, '');
-        var url  = base ? base + '/{z}/{x}/{y}.png'
-                        : '../assets/tiles/{z}/{x}/{y}.png';
-        L.tileLayer(url, TILE_OPTIONS).addTo(map);
-    }());
+    L.tileLayer('../assets/tiles/{z}/{x}/{y}.png', {
+        minZoom: 11,
+        maxZoom: 16,
+        attribution: ''
+    }).addTo(map);
 
     map.whenReady(function () {
         var minZ = Math.ceil(map.getBoundsZoom(tileBounds, true));
