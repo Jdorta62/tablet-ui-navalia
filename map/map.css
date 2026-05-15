@@ -81,6 +81,30 @@ html, body {
     transform: scale(0.95);
 }
 
+/* ===== BOTÓN VOLVER AL ÍNDICE ===== */
+#btn-back-index {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 2000;
+    padding: 12px 28px;
+    background: rgba(13, 13, 13, 0.92);
+    border: 1px solid #3a7d32;
+    color: #8a9e88;
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(9px 0%, 100% 0%, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0% 100%, 0% 9px);
+    transition: border-color 0.12s, color 0.12s, box-shadow 0.12s;
+}
+#btn-back-index:hover {
+    border-color: #4ea844;
+    color: #4ea844;
+    box-shadow: 0 0 10px rgba(58, 125, 50, 0.55);
+}
+
 /* ===== MARCADORES DEL MAPA (DivIcon) ===== */
 .map-marker-icon {
     background: transparent !important;

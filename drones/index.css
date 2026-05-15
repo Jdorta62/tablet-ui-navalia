@@ -8,9 +8,31 @@
 
 #page-header {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 32px;
     padding: 32px 64px;
     border-bottom: 1px solid #3a7d32;
     background: #0f130f;
+}
+
+#btn-back-index {
+    flex-shrink: 0;
+    padding: 10px 24px;
+    background: transparent;
+    border: 1px solid #3a7d32;
+    color: #8a9e88;
+    font-family: 'ShareTechMono', 'Courier New', monospace;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.12s, color 0.12s, box-shadow 0.12s;
+}
+#btn-back-index:hover {
+    border-color: #4ea844;
+    color: #4ea844;
+    box-shadow: 0 0 10px rgba(58, 125, 50, 0.55);
 }
 
 #page-title {
