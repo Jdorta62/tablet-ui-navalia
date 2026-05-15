@@ -1,0 +1,335 @@
+/* ===== LAYOUT ===== */
+#layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== MAPA — sin tocar ===== */
+#map {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    position: relative;
+}
+
+/* ===== ZOOM CONTROLS ===== */
+#zoom-controls {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    background: rgba(10, 13, 10, 0.95);
+    border: 1px solid #3a7d32;
+    padding: 14px 18px;
+}
+
+#zoom-in,
+#zoom-out,
+#btn-mode {
+    width: 108px;
+    height: 108px;
+    background: rgba(13, 13, 13, 0.92);
+    border: 1px solid #3a7d32;
+    color: #4ea844;
+    font-family: 'Courier New', monospace;
+    font-size: 58px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(13px 0%, 100% 0%, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0% 100%, 0% 13px);
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background 0.1s;
+}
+
+#zoom-out {
+    background: rgba(6, 10, 6, 0.96);
+    border-color: #2d5a27;
+    color: #7abf78;
+}
+
+#zoom-in:active,
+#zoom-out:active,
+#btn-mode:active {
+    background: rgba(58, 125, 50, 0.3);
+    transform: scale(0.95);
+}
+
+#btn-mode img {
+    width: 63px;
+    height: 63px;
+    display: block;
+}
+
+
+/* ===== ETIQUETA DE MODO ===== */
+#mode-label {
+    height: 108px;
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    background: rgba(13, 13, 13, 0.0);
+    border: none;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.mode-label-value {
+    font-size: 45px;
+    color: #4ea844;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* Cursor en modo Pin sobre el mapa */
+#map.pin-mode {
+    cursor: crosshair;
+}
+
+/* ===== MARCADOR DE CENTRO — sin tocar ===== */
+.mission-center-icon {
+    background: transparent !important;
+    border: none !important;
+}
+
+.mission-center-marker {
+    width: 44px;
+    height: 44px;
+    border: 2px solid #4ea844;
+    border-radius: 50%;
+    background: rgba(78, 168, 68, 0.15);
+    position: relative;
+    box-shadow: 0 0 10px rgba(78, 168, 68, 0.5);
+}
+
+.mission-center-marker::before,
+.mission-center-marker::after {
+    content: '';
+    position: absolute;
+    background: #4ea844;
+}
+
+.mission-center-marker::before {
+    width: 2px;
+    height: 100%;
+    left: calc(50% - 1px);
+    top: 0;
+}
+
+.mission-center-marker::after {
+    width: 100%;
+    height: 2px;
+    top: calc(50% - 1px);
+    left: 0;
+}
+
+/* ===== BARRA DE ESTADO DE MISIÓN ===== */
+.mission-status-bar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 44px;
+    font-size: 26px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1a2a1a;
+    background: rgba(0, 0, 0, 0.25);
+    order: -1;
+}
+
+.mission-status-bar.hidden { display: none; }
+
+.mission-status-bar.pending { border-bottom-color: #e8960a; }
+.mission-status-bar.pending .mission-status-text-inner { color: #e8960a; }
+
+.mission-status-bar.confirmed { border-bottom-color: #4ea844; }
+.mission-status-bar.confirmed .mission-status-text-inner { color: #4ea844; }
+
+.mission-status-bar.timeout { border-bottom-color: #c0392b; }
+.mission-status-bar.timeout .mission-status-text-inner { color: #c0392b; }
+
+.mission-status-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.mission-status-bar.pending   .mission-status-dot { background: #e8960a; box-shadow: 0 0 6px rgba(232,150,10,0.8); animation: pulse-warn 1.2s ease-in-out infinite; }
+.mission-status-bar.confirmed .mission-status-dot { background: #4ea844; box-shadow: 0 0 6px rgba(78,168,68,0.8); animation: none; }
+.mission-status-bar.timeout   .mission-status-dot { background: #c0392b; box-shadow: 0 0 6px rgba(192,57,43,0.7); animation: none; }
+
+@keyframes pulse-warn {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
+}
+
+/* ===== PANEL DERECHO ===== */
+#panel {
+    width: 820px;
+    min-width: 820px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #0f130f;
+    border-left: 1px solid #3a7d32;
+    overflow: hidden;
+}
+
+#panel-header {
+    flex-shrink: 0;
+    min-height: 120px;
+    padding: 16px 40px;
+    border-bottom: 1px solid #3a7d32;
+    background: #0f130f;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+#drone-name {
+    flex: 1;
+    font-size: 30px;
+    color: #4ea844;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#panel-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    padding: 48px 44px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+#panel-body::-webkit-scrollbar       { width: 56px; }
+#panel-body::-webkit-scrollbar-track { background: #0a0d0a; border-left: 2px solid #1e3a1c; }
+#panel-body::-webkit-scrollbar-thumb {
+    background: #2d5a27;
+    border: 12px solid #0a0d0a;
+    border-radius: 3px;
+    min-height: 80px;
+}
+#panel-body::-webkit-scrollbar-thumb:hover { background: #3a7d32; }
+
+/* ===== SECCIONES ===== */
+.panel-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.section-title {
+    font-size: 26px;
+    color: #506050;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1a2a1a;
+}
+
+.coord-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.coord-label {
+    font-size: 28px;
+    color: #3a5a38;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.coord-val {
+    font-size: 32px;
+    color: #4ea844;
+    letter-spacing: 0.04em;
+}
+
+.hint {
+    font-size: 26px;
+    color: #3a5a38;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+}
+
+/* ===== SLIDERS ===== */
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.slider-label {
+    width: 100px;
+    flex-shrink: 0;
+    font-size: 26px;
+    color: #506050;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.area-slider {
+    flex: 1;
+    height: 88px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.area-slider::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #1e3a1c;
+    border-radius: 2px;
+}
+
+.area-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 56px;
+    height: 88px;
+    background: #3a7d32;
+    border: 1px solid #4ea844;
+    border-radius: 2px;
+    margin-top: -42px;
+    cursor: pointer;
+}
+
+.slider-val {
+    width: 128px;
+    flex-shrink: 0;
+    font-size: 32px;
+    color: #4ea844;
+    letter-spacing: 0.04em;
+    text-align: right;
+}
+
+/* ===== BOTÓN LANZAR ===== */
+#launch-wrap {
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+#btn-launch {
+    width: 100%;
+    min-height: 120px;
+    font-size: 32px;
+}

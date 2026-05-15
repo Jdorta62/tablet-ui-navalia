@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Táctico</title>
+    <link rel="stylesheet" href="../assets/libs/leaflet/leaflet.css">
+    <link rel="stylesheet" href="./map.css">
+    <link rel="stylesheet" href="./panel.css">
+</head>
+<body>
+    <div id="layout">
+
+        <div id="map">
+            <div id="zoom-controls">
+                <button id="zoom-in"  type="button">+</button>
+                <button id="zoom-out" type="button">−</button>
+            </div>
+        </div>
+
+        <div id="panel">
+            <div id="panel-header">ELEMENTOS</div>
+            <div id="panel-list"></div>
+        </div>
+
+    </div>
+
+    <script src="../assets/libs/leaflet/leaflet.js"></script>
+    <script src="./map.js"></script>
+    <script src="./panel.js"></script>
+    <script src="./mock.js"></script>
+</body>
+</html>

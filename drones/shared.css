@@ -1,0 +1,175 @@
+/* ===== RESET ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0d0d0d;
+}
+
+/* ===== FONT ===== */
+@font-face {
+    font-family: 'ShareTechMono';
+    src: url('../assets/fonts/ShareTechMono-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'ShareTechMono', 'Courier New', monospace;
+    color: #e0e0e0;
+}
+
+/* ===== VARIABLES ===== */
+:root {
+    --bg-base:       #0d0d0d;
+    --bg-panel:      #0f130f;
+    --bg-card:       #111511;
+    --accent:        #3a7d32;
+    --accent-bright: #4ea844;
+    --accent-dim:    #2d5a27;
+    --text-primary:  #e0e0e0;
+    --text-dim:      #6a8e68;
+    --text-label:    #506050;
+    --border:        #1a2a1a;
+    --border-accent: #3a7d32;
+    --status-ok:     #4ea844;
+    --status-err:    #c0392b;
+}
+
+/* ===== BOTONES ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 96px;
+    padding: 0 48px;
+    font-family: 'ShareTechMono', 'Courier New', monospace;
+    font-size: 28px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    background: transparent;
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+    transition: background 0.12s;
+}
+
+.btn:active {
+    background: rgba(58, 125, 50, 0.22);
+}
+
+.btn-primary {
+    background: rgba(58, 125, 50, 0.12);
+    border-color: var(--accent-bright);
+    color: #fff;
+    font-size: 30px;
+}
+
+.btn-primary:active {
+    background: rgba(58, 125, 50, 0.35);
+}
+
+.btn-primary:disabled {
+    opacity: 0.28;
+    pointer-events: none;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 96px;
+    padding: 0 24px;
+    font-family: 'ShareTechMono', 'Courier New', monospace;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.btn-back:active {
+    color: var(--text-primary);
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.visible {
+    display: flex;
+}
+
+.modal-box {
+    background: #0f130f;
+    border: 1px solid var(--accent);
+    padding: 64px;
+    min-width: 800px;
+    max-width: 1100px;
+    clip-path: polygon(24px 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 24px);
+}
+
+.modal-title {
+    font-size: 34px;
+    color: var(--text-primary);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-accent);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+}
+
+.modal-body {
+    font-size: 28px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    line-height: 2;
+    margin-bottom: 56px;
+}
+
+.modal-body strong {
+    color: var(--accent-bright);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 24px;
+    justify-content: flex-end;
+}
+
+/* ===== SHAKE (tarjeta no operativa) ===== */
+@keyframes shake {
+    0%   { transform: translateX(0); }
+    15%  { transform: translateX(-8px); }
+    35%  { transform: translateX(8px); }
+    50%  { transform: translateX(-5px); }
+    65%  { transform: translateX(5px); }
+    80%  { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}

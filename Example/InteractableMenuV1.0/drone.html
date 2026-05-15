@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MesaXR - DRONE</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container scan-line-effect">
+        <!-- HEADER -->
+        <div class="nav-bar animate-slide-down">
+            <div class="nav-left">
+                <img src="../mesaXR-logo-removebg.png" alt="MesaXR Logo" class="nav-logo">
+                <h1 class="nav-title">DRONE — UAV Táctico</h1>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <div class="scrollable" style="width: 100%; height: 100%; overflow-y: auto; padding: var(--spacing-xl);">
+                <!-- ESPECIFICACIONES TÉCNICAS -->
+                <div class="section animate-fade-in stagger-1">
+                    <h2 class="section-title">Especificaciones Técnicas</h2>
+                    <div class="grid grid-2">
+                        <div class="stat-card animate-slide-up stagger-2">
+                            <div class="stat-card-label">Autonomía</div>
+                            <div>
+                                <span class="stat-card-value">45</span>
+                                <span class="stat-card-unit">min</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up stagger-3">
+                            <div class="stat-card-label">Altitud Máxima</div>
+                            <div>
+                                <span class="stat-card-value">2500</span>
+                                <span class="stat-card-unit">m</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up stagger-4">
+                            <div class="stat-card-label">Velocidad Máxima</div>
+                            <div>
+                                <span class="stat-card-value">72</span>
+                                <span class="stat-card-unit">km/h</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up stagger-5">
+                            <div class="stat-card-label">Carga Útil</div>
+                            <div>
+                                <span class="stat-card-value">2.7</span>
+                                <span class="stat-card-unit">kg</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up stagger-6">
+                            <div class="stat-card-label">Alcance de Control</div>
+                            <div>
+                                <span class="stat-card-value">8</span>
+                                <span class="stat-card-unit">km</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up stagger-7">
+                            <div class="stat-card-label">Peso Operacional</div>
+                            <div>
+                                <span class="stat-card-value">1200</span>
+                                <span class="stat-card-unit">g</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider animate-fade-in stagger-8"></div>
+
+                <!-- ESTADO OPERACIONAL -->
+                <div class="section animate-fade-in stagger-9">
+                    <h2 class="section-title">Estado Operacional</h2>
+                    <div class="card-container">
+                        <div class="card-content">
+                            <div class="flex gap-md flex-col">
+                                <div class="flex flex-between">
+                                    <span class="stat-card-label">Estado General:</span>
+                                    <span class="status-badge status-on">● Operacional</span>
+                                </div>
+                                <div class="flex flex-between">
+                                    <span class="stat-card-label">Batería:</span>
+                                    <span class="status-badge status-on">● Cargada</span>
+                                </div>
+                                <div class="flex flex-between">
+                                    <span class="stat-card-label">Sistemas de Gimbal:</span>
+                                    <span class="status-badge status-on">● Activo</span>
+                                </div>
+                                <div class="flex flex-between">
+                                    <span class="stat-card-label">Conectividad:</span>
+                                    <span class="status-badge status-on">● Sincronizado</span>
+                                </div>
+                                <div class="flex flex-between">
+                                    <span class="stat-card-label">Sensores:</span>
+                                    <span class="status-badge status-on">● En línea</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider animate-fade-in stagger-10"></div>
+
+                <!-- SISTEMAS A BORDO -->
+                <div class="section animate-fade-in stagger-11">
+                    <h2 class="section-title">Sistemas a Bordo</h2>
+                    <div class="flex gap-md flex-col">
+                        <div class="badge badge-cian">📷 Cámara 4K Estabilizada</div>
+                        <div class="badge badge-purple">🛰️ GPS Dual Frecuencia</div>
+                        <div class="badge badge-success">🌡️ Sensor Térmico FLIR</div>
+                        <div class="badge badge-cian">📡 Comunicaciones Redundantes</div>
+                        <div class="badge badge-warning">⚡ Batería Inteligente</div>
+                        <div class="badge badge-purple">🔦 Sistema de Iluminación IR</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+
+    <button id="toggleBtn" onclick="toggleDrone()" style="
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        font-family: 'Orbitron', monospace;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 16px 28px;
+        min-height: 60px;
+        background: transparent;
+        border: 2px solid #00c8c8;
+        color: #00c8c8;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 9999;
+        transition: background 0.15s, color 0.15s, border-color 0.15s;
+    ">ACTIVAR EN ESCENA</button>
+
+    <script>
+        var droneActivo = false;
+
+        function toggleDrone() {
+            droneActivo = !droneActivo;
+            var btn = document.getElementById('toggleBtn');
+            if (droneActivo) {
+                btn.textContent = 'DESACTIVAR EN ESCENA';
+                btn.style.borderColor = '#ff3860';
+                btn.style.color = '#ff3860';
+            } else {
+                btn.textContent = 'ACTIVAR EN ESCENA';
+                btn.style.borderColor = '#00c8c8';
+                btn.style.color = '#00c8c8';
+            }
+            uwb.ExecuteJsMethod("toggleDrone");
+        }
+    </script>
+</body>
+</html>

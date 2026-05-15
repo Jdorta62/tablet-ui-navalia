@@ -1,0 +1,168 @@
+/* ===== PANEL CONTAINER ===== */
+#panel {
+    width: 520px;
+    min-width: 520px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #0f130f;
+    border-left: 1px solid #3a7d32;
+    overflow: hidden;
+}
+
+/* ===== PANEL HEADER ===== */
+#panel-header {
+    flex-shrink: 0;
+    padding: 20px 24px 18px;
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    color: #506050;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #3a7d32;
+    background: #0f130f;
+}
+
+/* ===== CARD LIST (zona scrollable) ===== */
+#panel-list {
+    flex: 1;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+}
+
+#panel-list::-webkit-scrollbar       { width: 28px; }
+#panel-list::-webkit-scrollbar-track { background: #0a0d0a; border-left: 2px solid #1e3a1c; }
+#panel-list::-webkit-scrollbar-thumb {
+    background: #2d5a27;
+    border: 6px solid #0a0d0a;
+    border-radius: 3px;
+    min-height: 60px;
+}
+#panel-list::-webkit-scrollbar-thumb:hover { background: #3a7d32; }
+
+/* ===== TARJETA ===== */
+.panel-card {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #1a2a1a;
+    padding: 22px 24px 22px 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background 0.12s;
+}
+
+/* Relleno de long-press: barra que avanza de izquierda a derecha */
+@keyframes press-fill {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+.panel-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: #4ea844;
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+}
+
+.panel-card.pressing::after {
+    animation: press-fill var(--press-duration, 0.5s) linear forwards;
+}
+
+.panel-card:hover          { background: #131813; }
+.panel-card:active         { background: #182018; }
+.panel-card.expanded       { background: #131813; border-bottom-color: #3a7d32; }
+
+/* Fila principal: icono + datos */
+.card-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Icono */
+.card-icon-wrap {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: #c8d8c4;
+    border: 1px solid #2d5a27;
+    padding: 6px;
+    display: block;
+}
+
+/* Textos */
+.card-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.card-name {
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    color: #e0e0e0;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-coords-brief {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.coord-lat,
+.coord-lon {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #6a8e68;
+    letter-spacing: 0.04em;
+}
+
+/* ===== DETALLE expandido ===== */
+.card-detail {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #1e3a1c;
+}
+
+.panel-card.expanded .card-detail { display: block; }
+
+.card-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.detail-label {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #3a5a38;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.detail-val {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #4ea844;
+    letter-spacing: 0.04em;
+}
