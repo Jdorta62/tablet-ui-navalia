@@ -94,16 +94,21 @@
         return L.divIcon({
             className: 'map-marker-icon',
             html: '<div class="map-marker"><img class="map-marker-img" src="' + iconUrl + '" /></div>',
-            iconSize:   [40, 40],
-            iconAnchor: [20, 20]
+            iconSize:   [60, 60],
+            iconAnchor: [30, 30]
         });
     }
 
     /* ------------------------------------------------------------------ */
-    /* 7. Internal marker registry                                          */
+    /* 7. Internal registries                                              */
     /* ------------------------------------------------------------------ */
 
-    var _markers = {};   /* { id: L.Marker } */
+    var _markers      = {};   /* { id: L.Marker } */
+    var _rescueAreas  = {};   /* { droneId: L.Rectangle } */
+
+    /* Conversión metros ↔ grados (para dibujar rectángulos de área) */
+    function mToLatDeg(m)       { return m / 111000; }
+    function mToLonDeg(m, lat)  { return m / (111000 * Math.cos(lat * Math.PI / 180)); }
 
     /* ------------------------------------------------------------------ */
     /* 8. Public API — called by Unity via ExecuteJavaScript                */
@@ -198,6 +203,79 @@
                 zoom !== undefined ? zoom : map.getZoom(),
                 { duration: 1.0, easeLinearity: 0.25 }
             );
+        },
+
+        /**
+         * Dibuja o actualiza el rectángulo de área de rescate de un drone.
+         * Los parámetros ya vienen en lat/lon y metros (del Quaternion workaround).
+         *
+         * @param {string} droneId   "drone_1" | "drone_2" | "drone_3"
+         * @param {number} lat       Latitud del centro (°)
+         * @param {number} lon       Longitud del centro (°)
+         * @param {number} widthM    Ancho del área en metros
+         * @param {number} heightM   Alto del área en metros
+         */
+        setRescueArea: function (droneId, lat, lon, widthM, heightM) {
+            var dLat   = mToLatDeg(heightM / 2);
+            var dLon   = mToLonDeg(widthM  / 2, lat);
+            var bounds = [
+                [lat - dLat, lon - dLon],
+                [lat + dLat, lon + dLon]
+            ];
+
+            if (_rescueAreas[droneId]) {
+                _rescueAreas[droneId].setBounds(bounds);
+            } else {
+                _rescueAreas[droneId] = L.rectangle(bounds, {
+                    color:       '#4ea844',
+                    weight:      2,
+                    fill:        true,
+                    fillColor:   '#4ea844',
+                    fillOpacity: 0.10,
+                    dashArray:   '6 4',
+                    interactive: false
+                }).addTo(map);
+            }
+
+            if (window.Panel) {
+                Panel.setCard('rescue', 'rescue_' + droneId, lat, lon, {
+                    label: 'Área ' + droneId + ' (' + Math.round(widthM) + '×' + Math.round(heightM) + ' m)'
+                });
+            }
+        },
+
+        /**
+         * Elimina el rectángulo de área de rescate y su tarjeta del panel.
+         * @param {string} droneId
+         */
+        removeRescueArea: function (droneId) {
+            if (_rescueAreas[droneId]) {
+                map.removeLayer(_rescueAreas[droneId]);
+                delete _rescueAreas[droneId];
+            }
+            if (window.Panel) {
+                Panel.removeCard('rescue_' + droneId);
+            }
+        },
+
+        /**
+         * Añade o actualiza un marcador a partir de coordenadas Unity (X, Z).
+         * Convierte a lat/lon via GeoConv antes de pintar en Leaflet.
+         * Llamado desde Unity cuando las posiciones llegan en espacio Unity.
+         *
+         * @param {string} type    "drone", "helicopter", "vessel", "waypoint", …
+         * @param {string} id      Identificador único: "drone_1", "vessel_01", …
+         * @param {number} unityX  Posición X en unidades Unity (Este)
+         * @param {number} unityZ  Posición Z en unidades Unity (Norte)
+         * @param {object} options { label: string, heading: number, … }
+         */
+        setMarkerUnity: function (type, id, unityX, unityZ, options) {
+            if (!window.GeoConv || !window.GeoConv.isReady()) {
+                console.error('[MapAPI] GeoConv no está listo. Marca ignorada: ' + id);
+                return;
+            }
+            var geo = window.GeoConv.unityToLatLon(unityX, unityZ);
+            window.MapAPI.setMarker(type, id, geo.lat, geo.lon, options);
         }
     };
 

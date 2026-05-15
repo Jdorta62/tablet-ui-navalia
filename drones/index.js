@@ -241,13 +241,19 @@
         entry.btnSelect.classList.toggle('disabled', !canSelect);
         entry.btnSelect.title = canSelect ? '' : (d.statusRescueArea ? 'Área ya asignada' : 'Drone no disponible');
 
-        // Position (x=lat, y=lon, z=alt per Unity Vector3 convention)
+        // Posición: Unity coords → lat/lon via GeoConv; Y = altitud
         var pos = d.position || {};
-        entry.latVal.textContent  = pos.x !== undefined ? pos.x.toFixed(4) : '—';
-        entry.lonVal.textContent  = pos.y !== undefined ? pos.y.toFixed(4) : '—';
-        entry.altVal.textContent  = pos.z !== undefined ? pos.z.toFixed(1) + ' m' : '—';
+        if (pos.x !== undefined && window.GeoConv && window.GeoConv.isReady()) {
+            var geo = window.GeoConv.unityToLatLon(pos.x, pos.z);
+            entry.latVal.textContent = geo.lat.toFixed(5) + '°';
+            entry.lonVal.textContent = geo.lon.toFixed(5) + '°';
+        } else {
+            entry.latVal.textContent = '—';
+            entry.lonVal.textContent = '—';
+        }
+        entry.altVal.textContent = pos.y !== undefined ? pos.y.toFixed(1) + ' m' : '—';
 
-        // Orientation (x=pitch, y=roll, z=yaw per Unity Euler convention)
+        // Orientación: x=pitch, y=roll, z=yaw (Unity Euler)
         var ori = d.orientation || {};
         entry.pitchVal.textContent = ori.x !== undefined ? ori.x.toFixed(1) + '°' : '—';
         entry.rollVal.textContent  = ori.y !== undefined ? ori.y.toFixed(1) + '°' : '—';

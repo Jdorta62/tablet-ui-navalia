@@ -3,7 +3,7 @@
    Cambiar MOCK_ENABLED a false para desactivar en producción.
    ============================================================ */
 
-var MOCK_ENABLED = true;
+var MOCK_ENABLED = false;
 
 var MOCK_DRONES = {
     drone_1: {
