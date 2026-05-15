@@ -25,4 +25,6 @@ desktop.ini
 *.meta
 
 # Tiles de mapa — son pesados y se distribuyen aparte
-assets/tiles/
+# Ignorar contenido pero no el directorio (así funciona la negación)
+assets/tiles/**
+!assets/tiles/tiles.config.example.json
